@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Santhosh E — Finance & AI Portfolio</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#090d18;
+--bg2:#0e1422;
+--card:#121a2e;
+--card2:#0f1628;
+--teal:#00d4aa;
+--teal-dim:rgba(0,212,170,.12);
+--teal-glow:rgba(0,212,170,.25);
+--purple:#7c6ff7;
+--purple-dim:rgba(124,111,247,.1);
+--amber:#f59e0b;
+--amber-dim:rgba(245,158,11,.12);
+--white:#f9fafb;
+--muted:#8a92a6;
+--muted2:#5a6275;
+--border:rgba(255,255,255,.07);
+--border2:rgba(255,255,255,.12);
+--radius:14px;
+--radius-sm:8px;
+--font-head:system-ui,-apple-system,'Segoe UI','Helvetica Neue',Arial,sans-serif;
+--font-body:system-ui,-apple-system,'Segoe UI','Helvetica Neue',Arial,sans-serif;
+--font-mono:'Cascadia Code','Fira Code','JetBrains Mono','Courier New',monospace;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg);color:var(--white);font-family:var(--font-body);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--teal);border-radius:2px}
+::selection{background:var(--teal);color:#000}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:999;padding:0 5%;transition:all .4s ease}
+nav.scrolled{background:rgba(9,13,24,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1100px;margin:0 auto;height:68px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--font-head);font-size:1.1rem;font-weight:700;color:var(--white);text-decoration:none;letter-spacing:-.01em}
+.logo span{color:var(--teal)}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.875rem;font-weight:500;transition:color .25s;letter-spacing:.01em}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{background:var(--teal);color:#000!important;padding:.45rem 1.1rem;border-radius:6px;font-weight:700!important;font-size:.82rem!important;transition:all .25s!important;letter-spacing:.02em}
+.nav-cta:hover{background:#00f0c0;transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:all .3s}
+.mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(9,13,24,.98);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:1.5rem 5%;z-index:998}
+.mobile-menu.open{display:block}
+.mobile-menu ul{list-style:none;display:flex;flex-direction:column;gap:1rem}
+.mobile-menu a{color:var(--muted);text-decoration:none;font-size:1rem;font-weight:500;display:block;padding:.4rem 0;transition:color .2s}
+.mobile-menu a:hover{color:var(--teal)}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;padding:0 5%;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,212,170,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,170,.04) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 60% at 50% 40%,#000 30%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 40%,#000 30%,transparent 100%)}
+.hero-orb1{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(0,212,170,.08) 0%,transparent 70%);top:-100px;right:-100px;pointer-events:none}
+.hero-orb2{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(124,111,247,.07) 0%,transparent 70%);bottom:-80px;left:-80px;pointer-events:none}
+.hero-content{max-width:1100px;margin:0 auto;width:100%;padding-top:80px;position:relative;z-index:2}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--teal-dim);border:1px solid rgba(0,212,170,.2);color:var(--teal);font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.35rem .9rem;border-radius:100px;margin-bottom:2rem;font-family:var(--font-mono)}
+.hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.hero-title{font-family:var(--font-head);font-size:clamp(2.8rem,6vw,4.5rem);font-weight:800;line-height:1.1;letter-spacing:-.03em;margin-bottom:1.25rem}
+.hero-title .line1{display:block;color:var(--white)}
+.hero-title .accent{color:var(--teal)}
+.typewriter-wrap{font-size:clamp(1.05rem,2.5vw,1.3rem);color:var(--muted);font-weight:400;margin-bottom:.75rem;min-height:2rem}
+#typewriter{color:var(--teal);font-weight:600}
+.cursor{display:inline-block;width:2px;height:1.1em;background:var(--teal);margin-left:2px;vertical-align:text-bottom;animation:blink .9s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero-sub{font-size:1rem;color:var(--muted);max-width:560px;margin-bottom:2.5rem;line-height:1.85;font-weight:400}
+.hero-sub strong{color:var(--white);font-weight:600}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:.5rem;background:var(--teal);color:#000;font-weight:700;font-size:.9rem;padding:.75rem 1.75rem;border-radius:8px;text-decoration:none;transition:all .3s;letter-spacing:.01em}
+.btn-primary:hover{background:#00f0c0;transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,212,170,.3)}
+.btn-secondary{display:inline-flex;align-items:center;gap:.5rem;background:transparent;color:var(--white);font-weight:600;font-size:.9rem;padding:.75rem 1.75rem;border-radius:8px;text-decoration:none;transition:all .3s;border:1px solid var(--border2);letter-spacing:.01em}
+.btn-secondary:hover{border-color:var(--teal);color:var(--teal);transform:translateY(-2px)}
+.hero-stats{display:flex;gap:3rem;margin-top:4rem;padding-top:2.5rem;border-top:1px solid var(--border)}
+.stat-num{font-size:2rem;font-weight:800;color:var(--teal);letter-spacing:-.02em}
+.stat-label{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:500;margin-top:.15rem}
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:.4;animation:float 2.5s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+.scroll-hint span{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-family:var(--font-mono)}
+.scroll-arrow{width:18px;height:18px;border-right:1px solid var(--muted);border-bottom:1px solid var(--muted);transform:rotate(45deg);margin-top:-5px}
+
+/* SECTIONS */
+section{padding:7rem 5%}
+.section-inner{max-width:1100px;margin:0 auto}
+.section-tag{font-family:var(--font-mono);font-size:.72rem;color:var(--teal);letter-spacing:.12em;text-transform:uppercase;font-weight:500;margin-bottom:.75rem;display:flex;align-items:center;gap:.75rem}
+.section-tag::before{content:'';width:24px;height:1px;background:var(--teal)}
+.section-title{font-family:var(--font-head);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:1rem}
+.section-sub{font-size:.97rem;color:var(--muted);max-width:540px;line-height:1.85}
+
+/* ABOUT */
+#about{background:var(--bg2)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:3.5rem}
+.about-text p{color:var(--muted);line-height:1.9;margin-bottom:1.25rem;font-size:.96rem}
+.about-text p strong{color:var(--white);font-weight:600}
+.about-text .highlight-line{border-left:3px solid var(--teal);padding-left:1.25rem;margin:2rem 0;color:var(--white);font-size:1.02rem;font-style:italic;font-weight:500;line-height:1.75}
+.about-cards{display:flex;flex-direction:column;gap:1rem}
+.about-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1.25rem 1.5rem;display:flex;align-items:center;gap:1.25rem;transition:border-color .3s}
+.about-card:hover{border-color:rgba(0,212,170,.3)}
+.about-card-icon{width:42px;height:42px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem}
+.icon-teal{background:var(--teal-dim)}
+.icon-purple{background:var(--purple-dim)}
+.icon-amber{background:var(--amber-dim)}
+.about-card-num{font-size:1.5rem;font-weight:800;color:var(--white);letter-spacing:-.02em}
+.about-card-label{font-size:.8rem;color:var(--muted);font-weight:400;margin-top:.1rem}
+
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem}
+.skill-card{background:var(--card2);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;transition:all .35s}
+.skill-card:hover{border-color:rgba(0,212,170,.25);transform:translateY(-4px)}
+.skill-icon{width:44px;height:44px;border-radius:10px;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.skill-card h3{font-size:1rem;font-weight:700;color:var(--white);margin-bottom:1.1rem;letter-spacing:-.01em}
+.pills{display:flex;flex-wrap:wrap;gap:.5rem}
+.pill{font-size:.73rem;font-weight:600;padding:.3rem .75rem;border-radius:100px;font-family:var(--font-mono);transition:all .25s;cursor:default;letter-spacing:.01em}
+.pill-teal{background:var(--teal-dim);color:var(--teal);border:1px solid rgba(0,212,170,.15)}
+.pill-purple{background:var(--purple-dim);color:var(--purple);border:1px solid rgba(124,111,247,.15)}
+.pill-amber{background:var(--amber-dim);color:var(--amber);border:1px solid rgba(245,158,11,.15)}
+.pill:hover{transform:scale(1.05)}
+
+/* PROJECTS */
+#projects{background:var(--bg2)}
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem}
+.proj-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;display:flex;flex-direction:column;transition:all .35s;position:relative;overflow:hidden}
+.proj-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--teal-dim),transparent 60%);opacity:0;transition:opacity .35s}
+.proj-card:hover{transform:translateY(-5px);border-color:rgba(0,212,170,.2)}
+.proj-card:hover::before{opacity:1}
+.proj-card.active{border-color:var(--teal);box-shadow:0 0 0 1px var(--teal),0 20px 60px rgba(0,212,170,.08)}
+.proj-card.active::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--teal),transparent)}
+.active-badge{display:inline-flex;align-items:center;gap:.4rem;background:var(--teal-dim);border:1px solid rgba(0,212,170,.3);color:var(--teal);font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.25rem .7rem;border-radius:100px;font-family:var(--font-mono);margin-bottom:1rem;align-self:flex-start}
+.active-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--teal);animation:pulse 1.5s infinite}
+.proj-number{font-family:var(--font-mono);font-size:.7rem;color:var(--muted2);font-weight:500;letter-spacing:.08em;margin-bottom:1rem}
+.proj-card h3{font-size:1.02rem;font-weight:700;color:var(--white);margin-bottom:.6rem;letter-spacing:-.01em;line-height:1.35;position:relative;z-index:1}
+.proj-sub{font-size:.8rem;color:var(--teal);font-weight:600;font-family:var(--font-mono);margin-bottom:.85rem;position:relative;z-index:1}
+.proj-desc{font-size:.88rem;color:var(--muted);line-height:1.8;flex:1;margin-bottom:1.5rem;position:relative;z-index:1}
+.proj-tags{display:flex;flex-wrap:wrap;gap:.4rem;position:relative;z-index:1}
+.proj-tag{font-size:.68rem;font-weight:500;padding:.2rem .6rem;border-radius:4px;font-family:var(--font-mono);background:rgba(255,255,255,.05);color:var(--muted);border:1px solid var(--border)}
+
+/* CERTS */
+.certs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:3.5rem}
+.cert-card{background:var(--card2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1.25rem;transition:all .3s;display:flex;flex-direction:column;gap:.75rem}
+.cert-card:hover{border-color:rgba(0,212,170,.2);transform:translateY(-3px)}
+.cert-dot{width:8px;height:8px;border-radius:50%}
+.cert-dot.done{background:var(--teal);box-shadow:0 0 6px rgba(0,212,170,.5)}
+.cert-dot.progress{background:var(--amber);box-shadow:0 0 6px rgba(245,158,11,.5);animation:pulse 1.5s infinite}
+.cert-dot.participated{background:var(--purple);box-shadow:0 0 6px rgba(124,111,247,.4)}
+.cert-title{font-size:.83rem;font-weight:600;color:var(--white);line-height:1.45}
+.cert-status{font-size:.68rem;font-family:var(--font-mono);font-weight:500;letter-spacing:.05em}
+.status-done{color:var(--teal)}
+.status-progress{color:var(--amber)}
+.status-part{color:var(--purple)}
+
+/* CONTACT */
+#contact{background:var(--bg2);text-align:center}
+.contact-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:4rem 3rem;max-width:680px;margin:3rem auto 0;position:relative;overflow:hidden}
+.contact-card::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,var(--teal-dim),transparent 70%)}
+.contact-card::after{content:'';position:absolute;bottom:-60px;left:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,var(--purple-dim),transparent 70%)}
+.contact-card h2{font-size:1.8rem;font-weight:800;letter-spacing:-.02em;margin-bottom:.75rem;position:relative;z-index:1}
+.contact-card p{color:var(--muted);margin-bottom:2rem;position:relative;z-index:1;line-height:1.85}
+.contact-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+.contact-link{display:inline-flex;align-items:center;gap:.6rem;padding:.7rem 1.5rem;border-radius:8px;font-size:.88rem;font-weight:600;text-decoration:none;transition:all .3s;letter-spacing:.01em}
+.contact-email{background:var(--teal-dim);color:var(--teal);border:1px solid rgba(0,212,170,.2)}
+.contact-email:hover{background:var(--teal);color:#000}
+.contact-li{background:rgba(10,102,194,.15);color:#5ba4f5;border:1px solid rgba(10,102,194,.2)}
+.contact-li:hover{background:rgba(10,102,194,.3)}
+
+/* FOOTER */
+footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem 5%}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-copy{font-size:.78rem;color:var(--muted2);font-family:var(--font-mono)}
+.footer-copy span{color:var(--teal)}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{font-size:.78rem;color:var(--muted2);text-decoration:none;transition:color .2s;font-family:var(--font-mono)}
+.footer-links a:hover{color:var(--teal)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.reveal.visible{opacity:1;transform:none}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+.reveal-delay-4{transition-delay:.4s}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+.about-grid{grid-template-columns:1fr}
+.skills-grid{grid-template-columns:1fr 1fr}
+.projects-grid{grid-template-columns:1fr 1fr}
+.certs-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+.nav-links{display:none}
+.hamburger{display:flex}
+.hero-stats{gap:1.75rem}
+.stat-num{font-size:1.5rem}
+.skills-grid{grid-template-columns:1fr}
+.projects-grid{grid-template-columns:1fr}
+.hero-title{font-size:2.4rem}
+section{padding:5rem 5%}
+.contact-card{padding:2.5rem 1.5rem}
+.footer-inner{flex-direction:column;text-align:center}
+}
+@media(max-width:400px){
+.certs-grid{grid-template-columns:1fr}
+.hero-btns{flex-direction:column}
+.hero-btns a{justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+<div class="nav-inner">
+<a href="#hero" class="logo">Santhosh<span>.</span></a>
+<ul class="nav-links">
+<li><a href="#about">About</a></li>
+<li><a href="#skills">Skills</a></li>
+<li><a href="#projects">Projects</a></li>
+<li><a href="#certs">Certifications</a></li>
+<li><a href="#contact" class="nav-cta">Hire Me</a></li>
+</ul>
+<button class="hamburger" id="hamburger" aria-label="Toggle menu">
+<span></span><span></span><span></span>
+</button>
+</div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+<ul>
+<li><a href="#about" onclick="closeMobile()">About</a></li>
+<li><a href="#skills" onclick="closeMobile()">Skills</a></li>
+<li><a href="#projects" onclick="closeMobile()">Projects</a></li>
+<li><a href="#certs" onclick="closeMobile()">Certifications</a></li>
+<li><a href="#contact" onclick="closeMobile()">Hire Me</a></li>
+</ul>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+<div class="hero-grid"></div>
+<div class="hero-orb1"></div>
+<div class="hero-orb2"></div>
+<div class="hero-content">
+<div class="hero-badge">&#9679;&nbsp; Available for Internship &amp; Freelance</div>
+<h1 class="hero-title">
+<span class="line1">Hi, I'm <span class="accent">Santhosh.</span></span>
+</h1>
+<div class="typewriter-wrap">
+<span id="typewriter"></span><span class="cursor"></span>
+</div>
+<p class="hero-sub">
+A <strong>B.Com (Accounting &amp; Finance)</strong> student from Chennai, building real-world financial analysis tools at the intersection of <strong>finance fundamentals</strong> and <strong>AI-driven insights</strong>. Actively preparing for NISM Series 12 and pursuing a career in Fintech and investment analysis.
+</p>
+<div class="hero-btns">
+<a href="#projects" class="btn-primary">View My Work &rarr;</a>
+<a href="#contact" class="btn-secondary">Get in Touch</a>
+</div>
+<div class="hero-stats">
+<div class="stat-item">
+<div class="stat-num">3+</div>
+<div class="stat-label">Projects Built</div>
+</div>
+<div class="stat-item">
+<div class="stat-num">10+</div>
+<div class="stat-label">Certifications &amp; Learning</div>
+</div>
+<div class="stat-item">
+<div class="stat-num">NISM</div>
+<div class="stat-label">Series 12 — In Progress</div>
+</div>
+</div>
+</div>
+<div class="scroll-hint">
+<span>Scroll</span>
+<div class="scroll-arrow"></div>
+</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+<div class="section-inner">
+<div class="section-tag reveal">01 — About</div>
+<h2 class="section-title reveal reveal-delay-1">Not Just Learning. <span style="color:var(--teal)">Building.</span></h2>
+<div class="about-grid">
+<div class="about-text reveal reveal-delay-2">
+<p>I'm Santhosh, a second-year <strong>B.Com (Accounting &amp; Finance)</strong> student at Government Arts College, Nandanam, Chennai. My focus is simple: combine strong finance fundamentals with modern AI tools to produce analysis that's fast, accurate, and genuinely useful.</p>
+<p>While most students are focused on passing exams, I'm building tools and systems. I'm actively preparing for the <strong>NISM Series 12</strong> certification, practising stock analysis techniques, and developing AI-powered financial workflows that simplify complex market insights into clear, actionable outputs.</p>
+<p>What sets me apart isn't a single skill — it's the combination of <strong>analytical discipline, consistent self-directed learning</strong>, and an execution-first mindset. I don't just read about financial modeling; I practise it. I don't just learn about AI tools; I build with them.</p>
+<div class="highlight-line">"My goal is to be at the intersection of Finance and AI — not someday, but now."</div>
+<p>I'm currently seeking <strong>internship opportunities</strong> in finance, investment research, or fintech — where I can contribute meaningfully while continuing to grow at a fast pace.</p>
+</div>
+<div class="about-cards reveal reveal-delay-3">
+<div class="about-card">
+<div class="about-card-icon icon-teal">📊</div>
+<div>
+<div class="about-card-num">3+</div>
+<div class="about-card-label">AI-powered finance projects built</div>
+</div>
+</div>
+<div class="about-card">
+<div class="about-card-icon icon-purple">📜</div>
+<div>
+<div class="about-card-num">10+</div>
+<div class="about-card-label">Certifications earned &amp; in progress</div>
+</div>
+</div>
+<div class="about-card">
+<div class="about-card-icon icon-amber">🎯</div>
+<div>
+<div class="about-card-num">Daily</div>
+<div class="about-card-label">Consistent upskilling — finance &amp; AI</div>
+</div>
+</div>
+<div class="about-card">
+<div class="about-card-icon icon-teal">🏛️</div>
+<div>
+<div class="about-card-num">GAC</div>
+<div class="about-card-label">Govt. Arts College, Nandanam, Chennai</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+<div class="section-inner">
+<div class="section-tag reveal">02 — Skills &amp; Stack</div>
+<h2 class="section-title reveal reveal-delay-1">What I Bring <span style="color:var(--teal)">to the Table</span></h2>
+<p class="section-sub reveal reveal-delay-2">Three interconnected pillars that form my professional foundation — finance knowledge, AI application, and the professional edge to communicate and execute effectively.</p>
+<div class="skills-grid">
+<div class="skill-card reveal reveal-delay-1">
+<div class="skill-icon icon-teal">📈</div>
+<h3>Finance Foundation</h3>
+<div class="pills">
+<span class="pill pill-teal">Financial Analysis</span>
+<span class="pill pill-teal">Stock Market</span>
+<span class="pill pill-teal">Financial Modeling</span>
+<span class="pill pill-teal">Equity Research</span>
+<span class="pill pill-teal">MS Excel</span>
+<span class="pill pill-teal">NISM Series 12</span>
+</div>
+</div>
+<div class="skill-card reveal reveal-delay-2">
+<div class="skill-icon icon-purple">🤖</div>
+<h3>AI &amp; Technology</h3>
+<div class="pills">
+<span class="pill pill-purple">Claude AI</span>
+<span class="pill pill-purple">Prompt Engineering</span>
+<span class="pill pill-purple">AI Workflow Design</span>
+<span class="pill pill-purple">Canva</span>
+<span class="pill pill-purple">AI-Powered Tools</span>
+</div>
+</div>
+<div class="skill-card reveal reveal-delay-3">
+<div class="skill-icon icon-amber">💡</div>
+<h3>Professional Edge</h3>
+<div class="pills">
+<span class="pill pill-amber">Analytical Thinking</span>
+<span class="pill pill-amber">Research</span>
+<span class="pill pill-amber">Communication</span>
+<span class="pill pill-amber">Time Management</span>
+<span class="pill pill-amber">Problem Solving</span>
+<span class="pill pill-amber">Adaptability</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+<div class="section-inner">
+<div class="section-tag reveal">03 — Projects</div>
+<h2 class="section-title reveal reveal-delay-1">Work That <span style="color:var(--teal)">Speaks for Itself</span></h2>
+<p class="section-sub reveal reveal-delay-2">Real-world tools built to solve real problems — not theoretical exercises, but functional systems designed for use by actual investors and analysts.</p>
+<div class="projects-grid">
+<div class="proj-card reveal reveal-delay-1">
+<div class="proj-number">Project 01</div>
+<h3>EQS AI Financial Analysis Tool</h3>
+<div class="proj-sub">"Professional-grade stock insights. In minutes."</div>
+<p class="proj-desc">I built this because financial analysis felt unnecessarily complicated for most people. You type in a company name, and it gives you a clear picture — growth potential, risk signals, investment indicators — all structured and easy to read. No jargon, no noise. Just what actually matters.</p>
+<div class="proj-tags">
+<span class="proj-tag">Claude AI</span>
+<span class="proj-tag">Financial Analysis</span>
+<span class="proj-tag">Prompt Engineering</span>
+<span class="proj-tag">Equity Research</span>
+</div>
+</div>
+<div class="proj-card reveal reveal-delay-2">
+<div class="proj-number">Project 02</div>
+<h3>AI Prompt Engineering Framework</h3>
+<div class="proj-sub">"Infrastructure for consistently intelligent output."</div>
+<p class="proj-desc">Good AI output doesn't happen by accident — it comes from asking the right questions the right way. I designed a reusable prompt system that works across finance analysis, workflow automation, and everyday productivity. Think of it as a playbook for getting consistently great results from AI, every time.</p>
+<div class="proj-tags">
+<span class="proj-tag">Prompt Engineering</span>
+<span class="proj-tag">Workflow Design</span>
+<span class="proj-tag">AI Systems</span>
+<span class="proj-tag">Productivity</span>
+</div>
+</div>
+<div class="proj-card active reveal reveal-delay-3">
+<div class="active-badge">&#9679;&nbsp; Currently Building</div>
+<div class="proj-number">Project 03</div>
+<h3>Advanced EQS AI Financial Plugin</h3>
+<div class="proj-sub">"Scaling financial intelligence into a modular system."</div>
+<p class="proj-desc">This is the next step — taking everything the EQS tool does and making it bigger, smarter, and more modular. Richer data, deeper analysis, cleaner reports. I'm building it to be the kind of tool a serious retail investor or analyst would actually want to use daily.</p>
+<div class="proj-tags">
+<span class="proj-tag">In Progress</span>
+<span class="proj-tag">Fintech</span>
+<span class="proj-tag">AI + Finance</span>
+<span class="proj-tag">Scalable Systems</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certs">
+<div class="section-inner">
+<div class="section-tag reveal">04 — Certifications</div>
+<h2 class="section-title reveal reveal-delay-1">Credentials &amp; <span style="color:var(--teal)">Qualifications</span></h2>
+<p class="section-sub reveal reveal-delay-2">A consistent track record of structured learning — across financial markets, AI tools, and professional development.</p>
+<div class="certs-grid">
+<div class="cert-card reveal reveal-delay-1">
+<div class="cert-dot done"></div>
+<div class="cert-title">LinkedIn Learning — Financial Modeling</div>
+<div class="cert-status status-done">&#10003; Completed</div>
+</div>
+<div class="cert-card reveal reveal-delay-2">
+<div class="cert-dot done"></div>
+<div class="cert-title">LinkedIn Learning — Financial Analysis</div>
+<div class="cert-status status-done">&#10003; Completed</div>
+</div>
+<div class="cert-card reveal reveal-delay-3">
+<div class="cert-dot done"></div>
+<div class="cert-title">LinkedIn Learning — Freelancing</div>
+<div class="cert-status status-done">&#10003; Completed</div>
+</div>
+<div class="cert-card reveal reveal-delay-4">
+<div class="cert-dot progress"></div>
+<div class="cert-title">NISM Series 12 — Securities Markets Foundation</div>
+<div class="cert-status status-progress">&#8635; In Progress</div>
+</div>
+<div class="cert-card reveal reveal-delay-1">
+<div class="cert-dot done"></div>
+<div class="cert-title">SEBI Investor Awareness Test</div>
+<div class="cert-status status-done">&#10003; Completed</div>
+</div>
+<div class="cert-card reveal reveal-delay-2">
+<div class="cert-dot participated"></div>
+<div class="cert-title">National Financial Literacy Quiz</div>
+<div class="cert-status status-part">&#9733; Participated</div>
+</div>
+<div class="cert-card reveal reveal-delay-3">
+<div class="cert-dot done"></div>
+<div class="cert-title">Typewriting — English &amp; Tamil</div>
+<div class="cert-status status-done">&#10003; Certified</div>
+</div>
+<div class="cert-card reveal reveal-delay-4">
+<div class="cert-dot done"></div>
+<div class="cert-title">Claude 101 — AI &amp; Prompt Engineering</div>
+<div class="cert-status status-done">&#10003; Completed</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+<div class="section-inner">
+<div class="section-tag reveal" style="justify-content:center">05 — Contact</div>
+<h2 class="section-title reveal reveal-delay-1" style="text-align:center">Ready to <span style="color:var(--teal)">Connect?</span></h2>
+<div class="contact-card reveal reveal-delay-2">
+<h2>Let's Build Something Together</h2>
+<p>I'm actively looking for <strong style="color:var(--white)">internship opportunities</strong> in finance, investment research, and fintech. If you're looking for a driven, detail-oriented professional who bridges finance and AI — let's talk.</p>
+<div class="contact-btns">
+<a href="mailto:santhoshspl027@gmail.com" class="contact-link contact-email">&#9993;&nbsp; santhoshspl027@gmail.com</a>
+<a href="https://www.linkedin.com/in/santhosh-e-b34275338/" target="_blank" rel="noopener" class="contact-link contact-li">&#128279;&nbsp; LinkedIn Profile</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<div class="footer-inner">
+<div class="footer-copy">&copy; 2025 <span>Santhosh E.</span> &mdash; Chennai, India</div>
+<div class="footer-links">
+<a href="#hero">Top</a>
+<a href="#about">About</a>
+<a href="#projects">Projects</a>
+<a href="mailto:santhoshspl027@gmail.com">Email</a>
+</div>
+</div>
+</footer>
+
+<script>
+const roles=['Aspiring Finance Professional','NISM Series 12 Learner','AI Tools Practitioner','Equity Research Enthusiast','Seeking Internship Opportunities'];
+let ri=0,ci=0,del=false;
+const tw=document.getElementById('typewriter');
+function type(){
+const r=roles[ri];
+if(!del){
+tw.textContent=r.slice(0,ci+1);ci++;
+if(ci===r.length){del=true;setTimeout(type,1800);return}
+setTimeout(type,65);
+}else{
+tw.textContent=r.slice(0,ci-1);ci--;
+if(ci===0){del=false;ri=(ri+1)%roles.length}
+setTimeout(type,del?35:65);
+}
+}
+setTimeout(type,900);
+
+const nav=document.getElementById('navbar');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>40);},{passive:true});
+
+const ham=document.getElementById('hamburger');
+const mob=document.getElementById('mobile-menu');
+ham.addEventListener('click',()=>mob.classList.toggle('open'));
+function closeMobile(){mob.classList.remove('open')}
+
+const obs=new IntersectionObserver(entries=>{
+entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+const sections=document.querySelectorAll('section[id]');
+const links=document.querySelectorAll('.nav-links a:not(.nav-cta)');
+window.addEventListener('scroll',()=>{
+let cur='';
+sections.forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur=s.id});
+links.forEach(a=>{a.style.color=a.getAttribute('href')==='#'+cur?'var(--white)':'';});
+},{passive:true});
+</script>
+</body>
+</html>
